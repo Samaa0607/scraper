@@ -1,0 +1,21 @@
+# CPU-only PyTorch builds (used by sentence-transformers). On Linux the default
+# PyPI torch wheel bundles CUDA (~530 MB); the CPU build is ~190 MB.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# Scraping
+playwright>=1.40.0
+beautifulsoup4>=4.12.0
+
+# RAG: local embeddings + vector math
+sentence-transformers>=3.0.0
+numpy>=1.24.0
+
+# LLM (optional at runtime; needs ANTHROPIC_API_KEY)
+anthropic>=1.0.0
+
+# Backend API
+flask>=3.0.0
+gunicorn>=23.0.0  # production server (Linux/Render); locally use: python app.py
+
+# Tests
+pytest>=8.0.0

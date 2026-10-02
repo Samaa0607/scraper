@@ -1,0 +1,14 @@
+# Secrets - never commit API keys
+.env
+.env.*
+*.key
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Hugging Face model cache used on Render (see config.py)
+.hf_cache/

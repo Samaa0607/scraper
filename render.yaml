@@ -1,0 +1,21 @@
+# Render Blueprint: Render dashboard → New → Blueprint → select this repository.
+services:
+  - type: web
+    name: saudi-legal-ai
+    runtime: python
+    # The app needs ~1-1.5 GB RAM (PyTorch + the multilingual-e5-small embedding
+    # model). The 512 MB Free/Starter instances run out of memory, so use Standard (2 GB).
+    plan: standard
+    # Install dependencies, then download the embedding model during the build so
+    # startup does not depend on huggingface.co (stored in HF_HOME inside the project).
+    buildCommand: pip install -r requirements.txt && python -c "from rag.vector_store import Embedder; Embedder()._load()"
+    # One worker (the model is loaded once per worker); generous timeout for model loading.
+    startCommand: gunicorn "app:build_app()" --workers 1 --threads 4 --timeout 300 --bind 0.0.0.0:$PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: HF_HOME
+        value: /opt/render/project/src/.hf_cache
+      # Optional. Without it the app runs in retrieval-only mode.
+      # Set the value in the Render dashboard; never commit it.
+      - key: ANTHROPIC_API_KEY
+        sync: false

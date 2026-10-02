@@ -1,0 +1,7 @@
+{
+  "embedding_model": "intfloat/multilingual-e5-small",
+  "num_chunks": 633,
+  "num_legislations": 10,
+  "data_fingerprint": "e2f03bc35bbc397d6849e0f0c0903a1bf75da7dd8e10ea4969cd2d7c1d3c2341",
+  "built_at": "2026-10-01T22:55:30+00:00"
+}
